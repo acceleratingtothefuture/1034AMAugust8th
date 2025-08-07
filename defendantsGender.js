@@ -8,9 +8,10 @@ const DATA_FOLDER = './data/';
 const LABELS = ['Male', 'Female', 'Other / Unknown'];
 
 const COLORS = {
-  Declined:   '#c2185b',
-  Defendants: '#007acc'
+  Declined:   '#8e24aa',  // purple
+  Defendants: '#009688'   // teal
 };
+
 
 // ---------------------------------------------------------------------------
 // HELPERS
