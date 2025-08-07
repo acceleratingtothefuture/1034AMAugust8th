@@ -160,3 +160,8 @@ canvas {
 canvas {
   max-width: 100%;
 }
+
+/* GENDER CHART COLORS */
+#hoverGender { color: #222;    }
+#hoverDeclG  { color: #c2185b; }
+#hoverAllG   { color: #007acc; }
