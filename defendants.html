@@ -19,6 +19,7 @@
   <!-- Logic -->
   <script type="module" src="defendants.js" defer></script>
   <script type="module" src="defendantsDeclined.js" defer></script>
+  <script type="module" src="defendantsGenderPie.js" defer></script>
   <script type="module" src="defendantsGender.js" defer></script> 
 </head>
 <body>
@@ -78,6 +79,22 @@
 
   <div class="bar-chart-box">
     <canvas id="declinedChart"></canvas>
+  </div>
+</section>
+
+  <section id="panelGenderPie">
+  <div class="dashboard-header">
+    <h2>Defendant Gender Demographics</h2>
+    <p>Percent of defendants by gender (latest year).</p>
+  </div>
+
+  <div class="hover-box">
+    <div id="hoverGenderLabel" class="hover-line"></div>
+    <div id="hoverGenderPct"   class="hover-line"></div>
+  </div>
+
+  <div class="bar-chart-box">
+    <canvas id="genderPieChart"></canvas>
   </div>
 </section>
 
