@@ -14,10 +14,12 @@
   <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  
 
   <!-- Logic -->
   <script type="module" src="defendants.js" defer></script>
   <script type="module" src="defendantsDeclined.js" defer></script>
+  <script type="module" src="defendantsGender.js" defer></script> 
 </head>
 <body>
 
@@ -79,5 +81,21 @@
   </div>
 </section>
 
+  <section id="panelGender">
+    <div class="dashboard-header">
+      <h2>Declined-to-Charge by Gender</h2>
+      <p>Percentage of defendants whose cases were rejected for filing, by gender.</p>
+    </div>
+
+    <div class="hover-box">
+      <div id="hoverGender" class="hover-line"></div>
+      <div id="hoverDeclG"  class="hover-line"></div>
+      <div id="hoverAllG"   class="hover-line"></div>
+    </div>
+
+    <div class="bar-chart-box">
+      <canvas id="genderChart"></canvas>
+    </div>
+  </section>
 </body>
 </html>
