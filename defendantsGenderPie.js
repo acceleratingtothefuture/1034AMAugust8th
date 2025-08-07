@@ -1,3 +1,4 @@
+// defendantsGenderPie.js
 import { cleanDefRow } from './cleanData.js';
 
 /* ------------------------------------------------------------------ */
@@ -8,24 +9,24 @@ const DATA_FOLDER = './data/';
 const LABELS = ['Male', 'Female', 'Other / Unknown'];
 
 const COLORS = {
-  Male:   '#2196f3', // blue
-  Female: '#e91e63', // pink
+  Male:   '#2196f3',   // blue
+  Female: '#e91e63',   // pink
   'Other / Unknown': '#9e9e9e' // gray
 };
 
 /* ------------------------------------------------------------------ */
 /* HELPERS                                                            */
 /* ------------------------------------------------------------------ */
-async function findLatestYear (prefix) {
-  const yearNow = new Date().getFullYear();
-  for (let y = yearNow; y >= 2015; y--) {
+async function findLatestYear(prefix) {
+  const current = new Date().getFullYear();
+  for (let y = current; y >= 2015; y--) {
     const res = await fetch(`${DATA_FOLDER}${prefix}_${y}.xlsx`, { method: 'HEAD' });
     if (res.ok) return y;
   }
   throw new Error(`No ${prefix} file found`);
 }
 
-function mapGender (raw) {
+function mapGender(raw) {
   const t = String(raw).toLowerCase();
   if (t.startsWith('m')) return 'Male';
   if (t.startsWith('f')) return 'Female';
@@ -33,17 +34,17 @@ function mapGender (raw) {
 }
 
 /* ------------------------------------------------------------------ */
-/* DATA + CHART                                                        */
+/* DATA + CHART                                                       */
 /* ------------------------------------------------------------------ */
-async function loadData () {
-  const year   = await findLatestYear('defendants');
-  const buf    = await fetch(`${DATA_FOLDER}defendants_${year}.xlsx`).then(r => r.arrayBuffer());
-  const wb     = XLSX.read(buf, { type: 'array' });
-  const sheet  = wb.Sheets[wb.SheetNames[0]];
-  const rows   = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+async function loadData() {
+  const year  = await findLatestYear('defendants');
+  const buf   = await fetch(`${DATA_FOLDER}defendants_${year}.xlsx`).then(r => r.arrayBuffer());
+  const wb    = XLSX.read(buf, { type: 'array' });
+  const sheet = wb.Sheets[wb.SheetNames[0]];
+  const rows  = XLSX.utils.sheet_to_json(sheet, { defval: '' });
 
   const counts = { Male: 0, Female: 0, 'Other / Unknown': 0 };
-  let total    = 0;
+  let total = 0;
 
   rows.forEach(r => {
     const d = cleanDefRow(r);
@@ -57,7 +58,7 @@ async function loadData () {
   buildChart(LABELS, data);
 }
 
-function buildChart (labels, data) {
+function buildChart(labels, data) {
   const ctx   = document.getElementById('genderPieChart');
   const lblEl = document.getElementById('hoverGenderLabel');
   const pctEl = document.getElementById('hoverGenderPct');
@@ -76,14 +77,21 @@ function buildChart (labels, data) {
     },
     options: {
       responsive: true,
-      plugins: { legend: { position: 'right' }, tooltip: { enabled: false } },
+      plugins: {
+        legend: { position: 'right' },
+        tooltip: { enabled: false }
+      },
       onHover: (evt, els, chart) => {
         if (els.length) {
           const i = els[0].index;
+          const sliceColor = COLORS[labels[i]];
           lblEl.textContent = labels[i];
           pctEl.textContent = `${data[i].toFixed(2)}% of defendants`;
+          pctEl.style.color = sliceColor;      // match slice colour
         } else {
-          lblEl.textContent = pctEl.textContent = '';
+          lblEl.textContent = '';
+          pctEl.textContent = '';
+          pctEl.style.color = '';              // reset
         }
       }
     }
@@ -91,6 +99,6 @@ function buildChart (labels, data) {
 }
 
 /* ------------------------------------------------------------------ */
-/* RUN                                                                 */
+/* RUN                                                                */
 /* ------------------------------------------------------------------ */
 loadData();
