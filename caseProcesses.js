@@ -200,7 +200,10 @@ async function main() {
       showStatus('No data files found.');
       return;
     }
-    await loadData(years);
+
+    const latestYear = Math.max(...years);
+    await loadData([latestYear]);
+
     showStatus('Rendering charts...');
     buildCharts();
   } catch (err) {
