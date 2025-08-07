@@ -161,7 +161,15 @@ canvas {
   max-width: 100%;
 }
 
-/* GENDER CHART COLORS */
-#hoverGender { color: #222;    }
-#hoverDeclG  { color: #c2185b; }
-#hoverAllG   { color: #007acc; }
+/* same layout constraints as the other panels */
+#panelGender {
+  padding: 30px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* gender-chart hover colors */
+#hoverGender { color: #222;     }  /* label text  */
+#hoverDeclG  { color: #8e24aa;  }  /* declined    */
+#hoverAllG   { color: #009688;  }  /* defendants  */
+
